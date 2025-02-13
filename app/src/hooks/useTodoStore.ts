@@ -2,7 +2,7 @@ import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Todo } from '../types';
 import { analyzeTodoWithAI } from '../lib/ai';
-
+//Type
 type TodoStore = {
   todos: Todo[];
   addTodo: (text: string) => Promise<void>;

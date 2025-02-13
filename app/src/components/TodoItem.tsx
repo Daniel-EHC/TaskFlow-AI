@@ -1,23 +1,23 @@
 import React from 'react';
 import { format } from 'date-fns';
-import { Check, Trash2, HelpCircle, X } from 'lucide-react';
+import { Check, Trash2, HelpCircle, X, ShoppingBag, Briefcase, User, Home, Heart, Users, FileText } from 'lucide-react';
 import { Todo } from '../types';
 import { useTodoItem } from '../hooks/useTodoItem';
 
-const categoryIcons = {
-  groceries: '🛒',
-  work: '💼',
-  personal: '👤',
-  health: '🏥',
-  home: '🏠',
-  social: '👥',
-  other: '📌'
+const categoryIcons: Record<string, React.ReactNode> = {
+  groceries: <ShoppingBag className="w-5 h-5" />,
+  work: <Briefcase className="w-5 h-5" />,
+  personal: <User className="w-5 h-5" />,
+  health: <Heart className="w-5 h-5" />,
+  home: <Home className="w-5 h-5" />,
+  social: <Users className="w-5 h-5" />,
+  other: <FileText className="w-5 h-5" />
 };
 
 const priorityColors = {
-  low: 'bg-gray-100 text-gray-800',
-  medium: 'bg-yellow-100 text-yellow-800',
-  high: 'bg-red-100 text-red-800'
+  low: 'bg-blue-50 text-blue-700',
+  medium: 'bg-yellow-50 text-yellow-700',
+  high: 'bg-red-50 text-red-700'
 };
 
 interface TodoItemProps {
@@ -28,49 +28,53 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const { showReasoning, handleToggle, handleDelete, toggleReasoning } = useTodoItem(todo);
 
   return (
-    <div className="group relative bg-white rounded-lg shadow-sm p-4 hover:shadow-md transition-shadow">
+    <div className="group relative bg-white rounded-lg border border-gray-100 p-3 md:p-4 hover:border-blue-200 transition-colors">
       <div className="flex items-start gap-3">
         <button
           onClick={handleToggle}
-          className={`flex-shrink-0 w-6 h-6 rounded-full border-2 ${
+          className={`flex-shrink-0 w-5 h-5 md:w-6 md:h-6 rounded-full border-2 ${
             todo.completed
-              ? 'bg-green-500 border-green-500'
-              : 'border-gray-300 hover:border-green-500'
+              ? 'bg-blue-500 border-blue-500'
+              : 'border-gray-300 hover:border-blue-500'
           } flex items-center justify-center transition-colors`}
         >
-          {todo.completed && <Check className="w-4 h-4 text-white" />}
+          {todo.completed && <Check className="w-3 h-3 md:w-4 md:h-4 text-white" />}
         </button>
 
-        <div className="flex-grow">
-          <div className="flex items-center gap-2">
-            <span className="text-xl">{categoryIcons[todo.category]}</span>
-            <span className={`text-lg ${todo.completed ? 'line-through text-gray-500' : ''}`}>
+        <div className="flex-1 min-w-0">
+          <div className="flex items-start gap-2 mb-2">
+            <div className={`flex-shrink-0 text-blue-600 ${todo.completed ? 'opacity-50' : ''}`}>
+              {categoryIcons[todo.category]}
+            </div>
+            <div className={`flex-1 text-sm md:text-base font-medium break-words ${
+              todo.completed ? 'line-through text-gray-400' : 'text-gray-900'
+            }`}>
               {todo.text}
-            </span>
+            </div>
           </div>
 
-          <div className="mt-2 flex flex-wrap gap-2 items-center text-sm">
+          <div className="flex flex-wrap gap-2 items-center text-xs">
             {todo.dueDate && (
-              <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded">
-                📅 {format(todo.dueDate, 'PPP')}
+              <span className="inline-flex bg-blue-50 text-blue-700 px-2 py-1 rounded-full font-medium">
+                {format(todo.dueDate, 'MMM d')}
               </span>
             )}
             
-            <span className={`px-2 py-1 rounded ${priorityColors[todo.priority]}`}>
-              {todo.priority.charAt(0).toUpperCase() + todo.priority.slice(1)} Priority
+            <span className={`inline-flex px-2 py-1 rounded-full font-medium ${priorityColors[todo.priority]}`}>
+              {todo.priority.charAt(0).toUpperCase() + todo.priority.slice(1)}
             </span>
 
             <button
               onClick={toggleReasoning}
-              className="inline-flex items-center gap-1 text-gray-500 hover:text-gray-700"
+              className="inline-flex items-center gap-1 text-gray-500 hover:text-blue-600 font-medium"
             >
               {showReasoning ? <X className="w-4 h-4" /> : <HelpCircle className="w-4 h-4" />}
-              {showReasoning ? 'Hide reasoning' : 'Why this category?'}
+              {showReasoning ? 'Hide AI reasoning' : 'Show AI reasoning'}
             </button>
           </div>
 
           {showReasoning && (
-            <div className="mt-2 text-sm text-gray-600 bg-gray-50 p-3 rounded">
+            <div className="mt-3 text-xs md:text-sm text-gray-600 bg-blue-50 p-3 rounded-lg">
               {todo.aiReasoning}
             </div>
           )}
@@ -79,8 +83,9 @@ export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
         <button
           onClick={handleDelete}
           className="flex-shrink-0 opacity-0 group-hover:opacity-100 text-gray-400 hover:text-red-500 transition-opacity"
+          aria-label="Delete todo"
         >
-          <Trash2 className="w-5 h-5" />
+          <Trash2 className="w-4 h-4 md:w-5 md:h-5" />
         </button>
       </div>
     </div>

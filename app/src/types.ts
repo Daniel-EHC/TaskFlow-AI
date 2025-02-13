@@ -8,13 +8,13 @@ export interface Todo {
   aiReasoning: string;
 }
 
-export type Category = 
-  | 'groceries' 
-  | 'work' 
-  | 'personal' 
-  | 'health' 
-  | 'home' 
-  | 'social' 
+export type Category =
+  | 'groceries'
+  | 'work'
+  | 'personal'
+  | 'health'
+  | 'home'
+  | 'social'
   | 'other';
 
 export type Priority = 'low' | 'medium' | 'high';

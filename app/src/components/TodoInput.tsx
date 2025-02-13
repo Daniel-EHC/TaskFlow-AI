@@ -1,7 +1,8 @@
+import React from 'react';
 import { PlusCircle } from 'lucide-react';
 import { useTodoInput } from '../hooks/useTodoInput';
 
-export function TodoInput() {
+export const TodoInput: React.FC = () => {
   const { text, isLoading, handleSubmit, handleTextChange } = useTodoInput();
 
   return (
@@ -25,4 +26,4 @@ export function TodoInput() {
       </div>
     </form>
   );
-}
+};

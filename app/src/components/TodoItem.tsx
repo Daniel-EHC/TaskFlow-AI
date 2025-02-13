@@ -1,3 +1,4 @@
+import React from 'react';
 import { format } from 'date-fns';
 import { Check, Trash2, HelpCircle, X } from 'lucide-react';
 import { Todo } from '../types';
@@ -23,7 +24,7 @@ interface TodoItemProps {
   todo: Todo;
 }
 
-export function TodoItem({ todo }: TodoItemProps) {
+export const TodoItem: React.FC<TodoItemProps> = ({ todo }) => {
   const { showReasoning, handleToggle, handleDelete, toggleReasoning } = useTodoItem(todo);
 
   return (
@@ -84,4 +85,4 @@ export function TodoItem({ todo }: TodoItemProps) {
       </div>
     </div>
   );
-}
+};

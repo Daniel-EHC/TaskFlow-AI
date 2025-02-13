@@ -41,17 +41,22 @@ cd app
 pnpm install
 ```
 
-3. Create a `.env` file in the root directory and add your Google API Key
+3. Build the project
+```bash
+pnpm build
+```
+
+4. Create a `.env` file in the root directory and add your Google API Key
 ```bash
 VITE_AI_API_KEY=your_api_key_here
 ```
 
-4. Start the development server
+5. Start the development server
 ```bash
 pnpm dev
 ```
 
-5. Open your browser and navigate to `http://localhost:5173`
+6. Open your browser and navigate to `http://localhost:5173`
 
 ## Building for Production 🏗️
 

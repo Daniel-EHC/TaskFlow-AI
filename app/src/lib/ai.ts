@@ -2,7 +2,7 @@ import * as chrono from 'chrono-node';
 import { Category, Priority } from '../types';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const apiKey = import.meta.env.VITE_AI_API_KEY;
+const apiKey = process.env.VITE_AI_API_KEY;
 
 interface AIAnalysis {
   category: Category;

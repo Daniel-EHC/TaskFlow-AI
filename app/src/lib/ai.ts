@@ -2,7 +2,8 @@ import * as chrono from 'chrono-node';
 import { Category, Priority } from '../types';
 import { GoogleGenerativeAI } from '@google/generative-ai';
 
-const apiKey = process.env.VITE_AI_API_KEY;
+const apiKey = import.meta.env.VITE_AI_API_KEY;
+
 
 interface AIAnalysis {
   category: Category;
@@ -63,14 +64,14 @@ export async function analyzeTodoWithAI(text: string): Promise<AIAnalysis> {
   }
 }
 
-function validateCategory(category: string): Category | null {
+function validateCategory(category: Category): Category | null {
   const validCategories: Category[] = ['groceries', 'work', 'personal', 'health', 'home', 'social', 'other'];
-  return validCategories.includes(category as Category) ? category as Category : null;
+  return validCategories.includes(category) ? category : null;
 }
 
-function validatePriority(priority: string): Priority | null {
+function validatePriority(priority: Priority): Priority | null {
   const validPriorities: Priority[] = ['low', 'medium', 'high'];
-  return validPriorities.includes(priority as Priority) ? priority as Priority : null;
+  return validPriorities.includes(priority) ? priority : null;
 }
 
 function getDefaultAnalysis(text: string): AIAnalysis {

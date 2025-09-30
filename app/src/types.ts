@@ -18,3 +18,7 @@ export type Category =
   | 'other';
 
 export type Priority = 'low' | 'medium' | 'high';
+
+export type CategoryFilter = Category | 'all';
+
+export type PriorityFilter = Priority | 'all';
